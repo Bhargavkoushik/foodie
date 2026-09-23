@@ -2,18 +2,28 @@ import mongoose from "mongoose";
 
 export const connectDB = async () => {
     try {
-        const mongoURI = process.env.MONGODB_URI || "mongodb://localhost:27017/foodie-app";
-        if (mongoURI.includes("<db_password>")) {
-            console.warn("\n⚠️  [MongoDB] Notice: MONGODB_URI contains '<db_password>'.");
-            console.warn("👉 Please replace '<db_password>' with your actual database user password in backend/.env to connect to MongoDB Atlas.\n");
+        const mongoURI = process.env.MONGODB_URI;
+
+        if (!mongoURI) {
+            throw new Error("MONGODB_URI environment variable is not configured");
         }
+
+        if (mongoURI.includes("<db_password>")) {
+            throw new Error(
+                "MONGODB_URI still contains <db_password>. Replace it with the actual database password."
+            );
+        }
+
         await mongoose.connect(mongoURI, {
             dbName: "foodie",
-            serverSelectionTimeoutMS: 5000
+            serverSelectionTimeoutMS: 10000
         });
-        console.log('db connected');
+
+        console.log("MongoDB connected successfully");
+        console.log(`Database: ${mongoose.connection.name}`);
+
     } catch (error) {
-        console.error('Database connection failed:', error.message);
-        // Continue without database for demo purposes
+        console.error("MongoDB connection failed:", error.message);
+        throw error;
     }
 };
