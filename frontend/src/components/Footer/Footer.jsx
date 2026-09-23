@@ -1,0 +1,107 @@
+import React from 'react'
+import './Footer.css'
+import { assets } from '../../assets/frontend_assets/assets'
+import { IoHome } from "react-icons/io5";
+import { SlSpeech } from "react-icons/sl";
+import { CiDeliveryTruck } from "react-icons/ci";
+import { MdPrivacyTip } from "react-icons/md";
+import { MdAddCall } from "react-icons/md";
+import { IoIosMail } from "react-icons/io";
+import { BsQuestionCircle } from "react-icons/bs"; 
+import { Link } from "react-router-dom";
+import FacebookIcon from '../Icons/FacebookIcon';
+import TwitterIcon from '../Icons/TwitterIcon';
+import LinkedInIcon from '../Icons/LinkedInIcon';
+import GithubIcon from '../Icons/GithubIcon';
+import FooterLogo from './FooterLogo';
+import NewsletterSubscription from '../NewsletterSubscription/NewsletterSubscription';
+
+const Footer = () => {
+  return (
+    <div className='footer' id='footer'> 
+      <div className="footer-content">
+        
+        {/* Left side (logo + description + social) */}
+        <div className="footer-content-left">
+          {/* <img src={assets.foodie_icon} alt="Foodie Logo" /> */}
+          <FooterLogo />
+          <p>
+            Enjoy delicious food from your favorite restaurants.  
+            Fast delivery, easy to use, and always satisfying.  
+            <br /><br />
+            No more waiting in lines or cooking at home.  
+            Order fresh, tasty meals with just a few taps.
+          </p>
+          <div className="footer-social-icons">
+            <FacebookIcon />
+            <TwitterIcon />
+            <LinkedInIcon />
+            <GithubIcon />  
+          </div>
+        </div>
+
+        {/* Company Links */}
+        <div className='footer-content-center'>
+          <h2 className='text'>COMPANY</h2>
+          <ul>
+            <li><IoHome className='icon' /><Link to="/"><span>Home</span></Link></li>
+            <li><SlSpeech className='icon' /><Link to="/aboutus"><span>About Us</span></Link></li>
+            <li><CiDeliveryTruck className='icon' /><Link to="/delivery"><span>Delivery</span></Link></li>
+            <li><MdPrivacyTip className='icon' /><Link to="/privacy"><span>Privacy Policy</span></Link></li>
+            <li><BsQuestionCircle className='icon' /><Link to="/faq"><span>FAQ</span></Link></li>
+          </ul>
+        </div>
+
+        {/* Contact Info */}
+        <div className='footer-content-right'>
+          <h2 className='text'>Get In Touch</h2>
+          <ul>
+            <li>
+              <MdAddCall className='icon' />
+              <a href="tel:+1214723889" className="no-underline text-inherit">
+                <span>+1-214-723-889</span>
+              </a>
+            </li>
+            <li>
+              <IoIosMail className='icon' />
+              <a href="mailto:Contact@foodie.com" className="no-underline text-inherit">
+                <span>Contact@foodie.com</span>
+              </a>
+            </li>
+          </ul>
+          {/* Newsletter Subscription Section */}
+      <NewsletterSubscription />
+        </div>
+      </div>
+
+      
+
+      <hr />
+      <div className="footer-bottom-row" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '12px' }}>
+        <p className="footer-copyright" style={{ margin: 0 }}>
+          Copyright {new Date().getFullYear()} &nbsp; &copy; &nbsp; foodie.com - All Rights Reserved
+        </p>
+        <Link
+          to="/admin/login"
+          style={{
+            color: 'inherit',
+            fontSize: '0.78rem',
+            textDecoration: 'none',
+            opacity: 0.65,
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: '4px',
+            transition: 'opacity 0.2s ease'
+          }}
+          onMouseEnter={(e) => e.currentTarget.style.opacity = '1'}
+          onMouseLeave={(e) => e.currentTarget.style.opacity = '0.65'}
+          title="Authorized Personnel Only"
+        >
+          <span>🔒</span> Admin Portal
+        </Link>
+      </div>
+    </div>
+  )
+}
+
+export default Footer

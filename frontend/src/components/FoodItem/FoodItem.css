@@ -1,0 +1,231 @@
+.food-item {
+  width: 100%;
+  max-width: 350px;
+  margin: 0 auto;
+  border-radius: 16px;
+  box-shadow: 0px 4px 14px var(--box-shadow, rgba(0, 0, 0, 0.06));
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  animation: FadeIn 0.5s ease;
+  background-color: var(--bg-color, #fff);
+  color: var(--text-color, #111);
+  border: 1px solid var(--border-color, #edf2f7);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.food-item:hover {
+  box-shadow: 0 8px 24px var(--hover-box-shadow, rgba(0, 0, 0, 0.12));
+  transform: translateY(-4px);
+}
+
+.food-item-img-container {
+  position: relative;
+  overflow: hidden;
+  height: 190px;
+  border-radius: 16px 16px 0 0;
+  background-color: #f7f7f7;
+}
+
+.food-item-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease-in-out;
+}
+
+.food-item-image:hover {
+  transform: scale(1.05);
+}
+
+.food-item-info {
+  padding: 16px 18px 18px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+/* ✅ Header: Name + Wishlist button inline */
+.food-item-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 4px;
+}
+
+.food-item-name {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--title-color, #111);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ✅ Wishlist button inline */
+.wishlist-inline-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+}
+
+.wishlist-inline-btn.active svg {
+  color: #ff4d6d;
+  fill: #ff4d6d;
+}
+
+/* ✅ Rating stars below name */
+.food-item-rating {
+  margin-top: 2px;
+  margin-bottom: 8px;
+}
+
+.food-item-desc {
+  color: var(--gray-text, #666);
+  font-size: 13px;
+  margin-bottom: 12px;
+  line-height: 1.45;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  min-height: 38px;
+}
+
+.food-item-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: auto;
+  padding-top: 6px;
+}
+
+.food-item-price {
+  color: #ff523b;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.view-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background-color: #ff523b;
+  border: none;
+  padding: 7px 14px;
+  border-radius: 50px;
+  color: white;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.view-btn:hover {
+  background-color: #e03f29;
+}
+
+/* ✅ Buttons at bottom */
+.action-buttons {
+  position: absolute;
+  bottom: 15px;
+  right: 15px;
+  display: flex;
+  gap: 10px;
+}
+
+/* ✅ Common style for both buttons */
+.wishlist-btn,
+.cart-btn {
+  background-color: white;
+  border: 2px solid #ddd;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.wishlist-btn:hover,
+.cart-btn:hover {
+  transform: scale(1.05);
+  background-color: #f9f9f9;
+}
+
+/* ✅ Wishlist Active State */
+.wishlist-btn.active {
+  background-color: #ffebef;
+  border-color: #ff6384;
+}
+
+/* ✅ Cart Counter */
+.food-item-counter {
+  position: absolute;
+  bottom: 15px;
+  right: 15px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-radius: 50px;
+  background-color: white;
+  padding: 6px 12px;
+  box-shadow: 0px 0px 8px #00000030;
+}
+
+.food-item-counter button {
+  background: none;
+  border: none;
+  font-size: 18px;
+  font-weight: bold;
+  color: tomato;
+  cursor: pointer;
+}
+.food-item-counter button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+
+.food-item-counter p {
+  font-weight: 500;
+  color: #111;
+}
+
+/* ✅ Shared wishlist item style */
+.food-item.shared {
+  border: 2px solid #f093fb;
+  position: relative;
+}
+
+.food-item.shared::before {
+  content: "🔗 Shared";
+  position: absolute;
+  top: -10px;
+  left: 15px;
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  color: white;
+  padding: 4px 12px;
+  border-radius: 15px;
+  font-size: 12px;
+  font-weight: 500;
+  z-index: 3;
+}
+
+@keyframes FadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0px);
+  }
+}

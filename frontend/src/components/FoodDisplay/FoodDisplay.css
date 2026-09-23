@@ -1,0 +1,231 @@
+/* === Food Display Wrapper === */
+.food-display {
+  max-width: 1200px;
+  margin: 30px auto 60px;
+  padding: 0 20px;
+}
+
+@media (max-width: 768px) {
+  .food-display {
+    margin: 20px auto 40px;
+    padding: 0 15px;
+  }
+}
+
+/* === Heading & Subtitle === */
+.food-display-header {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.food-display-header .top-dishes-heading {
+  font-size: clamp(1.6rem, 2.5vw, 2.2rem);
+  font-weight: 700;
+  color: var(--text-color, #1a1a1a);
+  margin-bottom: 6px;
+}
+
+.food-display-subtitle {
+  font-size: 0.95rem;
+  color: var(--gray-text, #666);
+}
+
+/* === Active Search Banner === */
+.active-search-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #fff3f0;
+  border: 1px solid #ffd4cb;
+  border-radius: 12px;
+  padding: 12px 18px;
+  margin-bottom: 20px;
+  font-size: 0.95rem;
+  color: #c53018;
+}
+
+.clear-search-pill-btn {
+  background: #ff523b;
+  color: #ffffff;
+  border: none;
+  border-radius: 20px;
+  padding: 5px 12px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.clear-search-pill-btn:hover {
+  background: #e03f29;
+}
+
+/* === Controls Bar (Pills + Count + Sort) === */
+.food-display-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  padding: 14px 18px;
+  background: var(--card-bg, #ffffff);
+  border: 1px solid var(--border-color, #eee);
+  border-radius: 14px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  margin-bottom: 30px;
+}
+
+.filter-toggle {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.filter-toggle button {
+  padding: 8px 16px;
+  border: 1px solid #e0e0e0;
+  background-color: #f9f9f9;
+  cursor: pointer;
+  border-radius: 20px;
+  font-weight: 500;
+  font-size: 0.88rem;
+  color: #444;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.filter-toggle button:hover {
+  background-color: #f0f0f0;
+  border-color: #ccc;
+}
+
+.filter-toggle button.active {
+  background-color: #ff523b;
+  color: #ffffff;
+  border-color: #ff523b;
+  box-shadow: 0 2px 6px rgba(255, 82, 59, 0.3);
+}
+
+.filter-toggle button.veg-btn.active {
+  background-color: #10b981;
+  border-color: #10b981;
+  box-shadow: 0 2px 6px rgba(16, 185, 129, 0.3);
+}
+
+.filter-toggle button.non-veg-btn.active {
+  background-color: #ef4444;
+  border-color: #ef4444;
+  box-shadow: 0 2px 6px rgba(239, 68, 68, 0.3);
+}
+
+.controls-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-left: auto;
+}
+
+.items-count-badge {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #777;
+  background: #f4f4f4;
+  padding: 4px 10px;
+  border-radius: 12px;
+}
+
+.sort-control {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.88rem;
+  color: #555;
+}
+
+.sort-control select {
+  padding: 6px 12px;
+  border: 1px solid #d9d9d9;
+  border-radius: 8px;
+  background: #fff;
+  font-size: 0.88rem;
+  color: #333;
+  cursor: pointer;
+  outline: none;
+}
+
+.sort-control select:focus {
+  border-color: #ff523b;
+}
+
+/* === Grid Layout === */
+.food-display-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 28px;
+  align-items: stretch;
+}
+
+@media (max-width: 600px) {
+  .food-display-controls {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .controls-right {
+    margin-left: 0;
+    justify-content: space-between;
+  }
+  .food-display-list {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+}
+
+/* === Empty State === */
+.food-empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  background: var(--card-bg, #ffffff);
+  border: 1px dashed #dcdcdc;
+  border-radius: 16px;
+  margin-top: 10px;
+}
+
+.empty-state-icon {
+  font-size: 3rem;
+  margin-bottom: 12px;
+}
+
+.food-empty-state h3 {
+  font-size: 1.3rem;
+  color: #222;
+  margin-bottom: 8px;
+}
+
+.food-empty-state p {
+  font-size: 0.95rem;
+  color: #777;
+  margin-bottom: 20px;
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.reset-filters-btn {
+  background: #ff523b;
+  color: #fff;
+  border: none;
+  border-radius: 25px;
+  padding: 10px 24px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.reset-filters-btn:hover {
+  background: #e03f29;
+  transform: translateY(-2px);
+}
+

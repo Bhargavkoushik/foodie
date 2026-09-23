@@ -1,0 +1,203 @@
+.settings-page {
+  max-width: 760px;
+  margin: 40px auto;
+  padding: 0 20px;
+  min-height: 60vh;
+}
+
+.settings-header {
+  margin-bottom: 28px;
+}
+
+.settings-header h1 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--text-color, #1f2937);
+  margin: 0;
+}
+
+.settings-section {
+  background: var(--card-bg, #ffffff);
+  border: 1px solid var(--border-color, #e5e7eb);
+  border-radius: 14px;
+  padding: 24px;
+  margin-bottom: 24px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.settings-section h2 {
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--text-color, #111827);
+  margin: 0 0 8px 0;
+}
+
+.settings-desc {
+  font-size: 13.5px;
+  color: var(--text-color, #6b7280);
+  margin: 0 0 16px 0;
+}
+
+.settings-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0;
+  border-top: 1px solid var(--border-color, #f3f4f6);
+}
+
+.settings-row:first-of-type {
+  border-top: none;
+}
+
+.settings-row-info h4 {
+  font-size: 14px;
+  font-weight: 600;
+  margin: 0 0 2px 0;
+  color: var(--text-color, #1f2937);
+}
+
+.settings-row-info p {
+  font-size: 12.5px;
+  color: var(--text-color, #6b7280);
+  margin: 0;
+}
+
+.settings-theme-btn {
+  background: var(--hover-bg, #f3f4f6);
+  border: 1px solid var(--border-color, #d1d5db);
+  color: var(--text-color, #1f2937);
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13.5px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.settings-theme-btn:hover {
+  border-color: var(--accent-color, #ff6347);
+  color: var(--accent-color, #ff6347);
+}
+
+.settings-toggle {
+  position: relative;
+  display: inline-block;
+  width: 44px;
+  height: 24px;
+}
+
+.settings-toggle input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.toggle-slider {
+  position: absolute;
+  cursor: pointer;
+  inset: 0;
+  background-color: #ccc;
+  transition: 0.3s;
+  border-radius: 24px;
+}
+
+.toggle-slider:before {
+  position: absolute;
+  content: "";
+  height: 18px;
+  width: 18px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  transition: 0.3s;
+  border-radius: 50%;
+}
+
+.settings-toggle input:checked + .toggle-slider {
+  background-color: var(--accent-color, #ff6347);
+}
+
+.settings-toggle input:checked + .toggle-slider:before {
+  transform: translateX(20px);
+}
+
+/* Password Form */
+.password-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  max-width: 420px;
+}
+
+.password-form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.password-form-field label {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--text-color, #374151);
+}
+
+.password-form-field input {
+  padding: 9px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--border-color, #d1d5db);
+  background: var(--card-bg, #ffffff);
+  color: var(--text-color, #111827);
+  font-size: 13.5px;
+}
+
+.password-form-field input:focus {
+  outline: none;
+  border-color: var(--accent-color, #ff6347);
+}
+
+.change-pw-btn {
+  background: var(--accent-color, #ff6347);
+  color: #fff;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  align-self: flex-start;
+  margin-top: 4px;
+  transition: all 0.2s ease;
+}
+
+.change-pw-btn:hover {
+  background: var(--accent-hover, #e05338);
+}
+
+/* Danger Zone */
+.danger-section {
+  border-color: rgba(239, 68, 68, 0.4);
+}
+
+.danger-section h2 {
+  color: #ef4444;
+}
+
+.delete-account-btn {
+  background: #ef4444;
+  color: #fff;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 8px;
+  font-size: 13.5px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.delete-account-btn:hover {
+  background: #dc2626;
+}
