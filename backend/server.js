@@ -19,7 +19,7 @@ const __dirname = path.dirname(__filename);
 
 // app config
 const app = express();
-const port = process.env.PORT || 4000;
+const PORT = process.env.PORT || 4000;
 
 // Ensure uploads folder exists
 const uploadsDir = path.join(__dirname, "uploads");
@@ -34,7 +34,7 @@ app.use(cookieParser());
 // Static file serving for uploads
 app.use("/images", express.static(uploadsDir));
 
-// CORS configuration supporting Vite/React local dev ports
+// CORS configuration supporting Vite/React local dev ports and production deployments
 const allowedOrigins = [
   "http://localhost:5173",
   "http://localhost:5174",
@@ -43,21 +43,29 @@ const allowedOrigins = [
   "http://127.0.0.1:5173",
   "http://127.0.0.1:5174",
   "http://127.0.0.1:5175",
-  "http://127.0.0.1:3000"
+  "http://127.0.0.1:3000",
+  "https://foodie-cyan-alpha.vercel.app",
+  ...(process.env.FRONTEND_URL ? [process.env.FRONTEND_URL] : []),
+  ...(process.env.CLIENT_URL ? [process.env.CLIENT_URL] : [])
 ];
 
 app.use(
   cors({
     origin: (origin, callback) => {
-      // Allow requests with no origin (e.g. mobile apps, curl, Postman) or allowed origins / localhost regex
+      // Allow requests with no origin (e.g. mobile apps, curl, Postman)
+      if (!origin) {
+        return callback(null, true);
+      }
+      // Check allowed list, localhost regex, or vercel.app deployments
       if (
-        !origin ||
         allowedOrigins.includes(origin) ||
-        /^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/.test(origin)
+        /^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/.test(origin) ||
+        /^https:\/\/.*\.vercel\.app$/.test(origin)
       ) {
         return callback(null, true);
       }
-      return callback(new Error(`Origin ${origin} not allowed by CORS`));
+      // Disallow origin cleanly without throwing unhandled server error
+      return callback(null, false);
     },
     credentials: true,
   })
@@ -94,16 +102,16 @@ app.use((err, req, res, next) => {
   });
 });
 
-const server = app.listen(port, () => {
-  console.log(`server started on port ${port}`);
+const server = app.listen(PORT, "0.0.0.0", () => {
+  console.log(`server started on port ${PORT}`);
 });
 
 // Graceful port conflict and listen error handling
 server.on("error", (err) => {
   if (err.code === "EADDRINUSE") {
-    console.error(`\n❌ Error: Port ${port} is already in use.`);
-    console.error(`👉 Another process is already running on port ${port}.`);
-    console.error(`👉 Run 'Stop-Process -Id (Get-NetTCPConnection -LocalPort ${port}).OwningProcess -Force' in PowerShell to free it, or choose another PORT in backend/.env.\n`);
+    console.error(`\n❌ Error: Port ${PORT} is already in use.`);
+    console.error(`👉 Another process is already running on port ${PORT}.`);
+    console.error(`👉 Run 'Stop-Process -Id (Get-NetTCPConnection -LocalPort ${PORT}).OwningProcess -Force' in PowerShell to free it, or choose another PORT in backend/.env.\n`);
   } else {
     console.error("Server error:", err);
   }

@@ -19,6 +19,14 @@ build/
 *.env
 !.env.example
 */ENV
+backend/.env
+backend/.env.*
+frontend/.env
+frontend/.env.*
+
+# Repository metadata to exclude from source control
+.github/
+SECURITY.md
 
 # Vite, parcel, and build tool caches
 .vite/
