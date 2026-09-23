@@ -1,6 +1,6 @@
 import { useState } from "react";
 import "./ReferralProgram.css";
-import toast from "react-hot-toast";
+import { toast } from "react-toastify";
 import { Share2, Copy, Check } from "lucide-react";
 
 const ReferralProgram = () => {

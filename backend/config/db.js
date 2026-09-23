@@ -8,11 +8,12 @@ export const connectDB = async () => {
             console.warn("👉 Please replace '<db_password>' with your actual database user password in backend/.env to connect to MongoDB Atlas.\n");
         }
         await mongoose.connect(mongoURI, {
-            dbName: "foodie"
+            dbName: "foodie",
+            serverSelectionTimeoutMS: 5000
         });
         console.log('db connected');
     } catch (error) {
-        console.log('Database connection failed, starting without DB:', error.message);
+        console.error('Database connection failed:', error.message);
         // Continue without database for demo purposes
     }
-};
+};

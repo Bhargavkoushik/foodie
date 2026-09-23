@@ -1,13 +1,28 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
+import mongoose from 'mongoose';
 import User from '../models/userModel.js';
 
 const generateToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: '7d' });
 };
 
+const ensureDbAvailable = (res) => {
+  if (mongoose.connection.readyState !== 1) {
+    return res.status(503).json({
+      success: false,
+      message: 'Service temporarily unavailable. Please try again.'
+    });
+  }
+
+  return null;
+};
+
 export const registerUser = async (req, res) => {
   try {
+    const dbCheck = ensureDbAvailable(res);
+    if (dbCheck) return dbCheck;
+
     const { name, email, password } = req.body;
 
     if (!name || !email || !password) {
@@ -51,6 +66,9 @@ export const registerUser = async (req, res) => {
 
 export const loginUser = async (req, res) => {
   try {
+    const dbCheck = ensureDbAvailable(res);
+    if (dbCheck) return dbCheck;
+
     const { email, password } = req.body;
 
     if (!email || !password) {

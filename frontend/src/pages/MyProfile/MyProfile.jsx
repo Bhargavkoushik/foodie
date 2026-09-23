@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
 import { Avatar, Dialog, DialogContent, DialogTitle } from '@mui/material'
-import toast from 'react-hot-toast'
+import { toast } from 'react-toastify'
 import apiRequest from '../../lib/apiRequest'
 import './MyProfile.css'
 
@@ -138,4 +138,4 @@ const MyProfile = () => {
     )
 }
 
-export default MyProfile
+export default MyProfile

@@ -2,7 +2,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './LoginPopup.css';
 import { assets } from '../../assets/frontend_assets/assets';
-import toast, { Toaster } from 'react-hot-toast';
+import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import apiRequest from "../../lib/apiRequest";
 import { EyeIcon, EyeOffIcon } from "lucide-react";
@@ -20,6 +20,7 @@ const LoginPopup = ({ setShowLogin, setIsLoggedIn }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [showLoginPassword, setShowLoginPassword] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const navigate = useNavigate();
 
   const handleStateChange = (newState) => {
@@ -145,6 +146,9 @@ const LoginPopup = ({ setShowLogin, setIsLoggedIn }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    if (isSubmitting) return;
+    setIsSubmitting(true);
+
     const formData = new FormData(e.target);
     const name = formData.get("name")?.trim();
     const email = formData.get("email")?.trim();
@@ -226,16 +230,19 @@ const LoginPopup = ({ setShowLogin, setIsLoggedIn }) => {
         toast.error(msg);
       }
     } catch (err) {
-      const msg = err.response?.data?.message || err.message || `${currState} failed. Please check your credentials and try again.`;
+      const msg = err.response?.status === 503
+        ? "Service temporarily unavailable. Please try again."
+        : err.response?.data?.message || err.message || `${currState} failed. Please check your credentials and try again.`;
       setErrorMessage(msg);
-      toast.error(msg);
+      toast.error(msg, { toastId: `auth-${currState}-${email || 'request'}` });
       console.error("Auth error:", err);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
   return (
     <div className='LoginPopup'>
-      <Toaster />
       <form ref={popupRef} className="login-popup-container" onSubmit={handleSubmit}>
         <div className="login-popup-title">
           <h2>{forgotFlow ? "Reset Password" : currState}</h2>

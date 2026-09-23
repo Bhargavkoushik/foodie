@@ -17,7 +17,6 @@ import Restaurants from "./pages/Restaurants/Restaurants";
 import RestaurantDetail from "./pages/Restaurants/RestaurantDetail";
 import Chatbot from "./components/Chatbot/Chatbot";
 import ContactPage from "./pages/Contactpage";
-import { Toaster } from "react-hot-toast";
 import LoadingAnimation from "./components/LoadingAnimation";
 import ScrollToTop from "../utility/ScrollToTop";
 import "./components/FoodDetail/print.css";
@@ -74,8 +73,17 @@ const App = () => {
   return (
     <ThemeContextProvider>
       <StoreContextProvider>
-        <Toaster position="top-right" reverseOrder={false} />
-        <ToastContainer position="top-right" autoClose={3000} />
+        <ToastContainer
+          position="top-right"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop
+          closeOnClick
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          limit={1}
+        />
         {showLogin && <LoginPopup setShowLogin={setShowLogin} setIsLoggedIn={setIsLoggedIn} />}
 
         <div className={isAdminPath ? "app-admin-mode" : "app"}>

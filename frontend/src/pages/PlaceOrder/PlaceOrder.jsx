@@ -63,7 +63,7 @@ import { StoreContext } from "../../components/context/StoreContext";
 import Location from "./Location"; // Import the Location component
 import { useNavigate } from "react-router-dom";
 import apiRequest from "../../lib/apiRequest";
-import toast from "react-hot-toast";
+import { toast } from "react-toastify";
 
 const PlaceOrder = () => {
     const { getTotalCartAmount, cartItems, food_list, clearCart } = useContext(StoreContext);

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./ManageAddresses.css";
-import toast from "react-hot-toast";
+import { toast } from "react-toastify";
 import { Plus, MapPin, Edit2, Trash2, CheckCircle2 } from "lucide-react";
 
 const getStorageKey = () => {

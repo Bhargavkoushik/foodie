@@ -2,7 +2,7 @@ import React, { useState, useContext, useEffect } from "react";
 import "./Settings.css";
 import { ThemeContext } from "../../components/context/ThemeContext";
 import apiRequest from "../../lib/apiRequest";
-import toast from "react-hot-toast";
+import { toast } from "react-toastify";
 import { Sun, Moon, Bell, Lock, ShieldAlert } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
