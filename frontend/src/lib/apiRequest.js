@@ -1,7 +1,20 @@
 import axios from "axios";
 
+// Determine the base backend URL dynamically:
+// 1. VITE_BACKEND_URL (preferred, e.g. set in Vercel / Docker / .env)
+// 2. VITE_API_URL (secondary Vite convention)
+// 3. Smart production fallback: if deployed on *.vercel.app, route to production Render backend
+// 4. Default for local development: http://localhost:4000
+export const BASE_URL =
+  import.meta.env.VITE_BACKEND_URL ||
+  import.meta.env.VITE_API_URL ||
+  (typeof window !== "undefined" &&
+  (window.location.hostname.includes("vercel.app") || window.location.hostname.includes("onrender.com"))
+    ? "https://foodie-nzkz.onrender.com"
+    : "http://localhost:4000");
+
 const apiRequest = axios.create({
-  baseURL: "http://localhost:4000",
+  baseURL: BASE_URL,
   withCredentials: true,
   timeout: 10000,
 });

@@ -4,7 +4,7 @@ import './MyOrder.css'
 import { food_list } from '../../assets/frontend_assets/assets'
 import { Dialog, DialogContent, DialogTitle, Rating } from '@mui/material';
 
-import apiRequest from '../../lib/apiRequest';
+import apiRequest, { BASE_URL } from '../../lib/apiRequest';
 
 const MyOrder = () => {
     const [search, setSearch] = useState("");
@@ -46,7 +46,7 @@ const MyOrder = () => {
                             let img = item.image;
                             if (!img || (!img.startsWith("http") && !img.startsWith("data:") && !img.startsWith("/src/"))) {
                                 if (item.image && !item.image.includes("/")) {
-                                    img = `http://localhost:4000/images/${item.image}`;
+                                    img = `${BASE_URL}/images/${item.image}`;
                                 } else {
                                     img = fallbackImg;
                                 }

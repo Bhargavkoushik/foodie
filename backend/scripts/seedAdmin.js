@@ -5,9 +5,14 @@ import User from "../models/userModel.js";
 
 const seedAdmin = async () => {
   try {
-    const mongoURI = process.env.MONGODB_URI || "mongodb://localhost:27017/foodie-app";
+    const mongoURI = process.env.MONGODB_URI;
     const adminEmail = process.env.ADMIN_EMAIL || "admin@foodie.com";
     const adminPassword = process.env.ADMIN_PASSWORD;
+
+    if (!mongoURI) {
+      console.error("❌ MONGODB_URI environment variable is required.");
+      process.exit(1);
+    }
 
     if (!adminPassword) {
       console.error("❌ ADMIN_PASSWORD environment variable is required to seed the admin account.");
@@ -20,7 +25,7 @@ const seedAdmin = async () => {
       process.exit(1);
     }
 
-    await mongoose.connect(mongoURI, { dbName: "foodie" });
+    await mongoose.connect(mongoURI, { dbName: "foodie", serverSelectionTimeoutMS: 10000 });
     console.log("Connected to MongoDB for admin seeding");
 
     const existingAdmin = await User.findOne({ email: adminEmail });

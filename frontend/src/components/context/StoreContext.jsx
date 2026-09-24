@@ -1,7 +1,7 @@
 import { createContext, useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import { food_list as staticFoodList } from "../../assets/frontend_assets/assets";
-import apiRequest from "../../lib/apiRequest";
+import apiRequest, { BASE_URL } from "../../lib/apiRequest";
 
 export const StoreContext = createContext();
 
@@ -21,7 +21,7 @@ const StoreContextProvider = ({ children }) => {
           ...item,
           image: item.image?.startsWith("http") || !item.image
             ? item.image
-            : `http://localhost:4000/images/${item.image}`,
+            : `${BASE_URL}/images/${item.image}`,
         }));
         // Merge backend foods ahead of static items
         setFoodList([...backendFoods, ...staticFoodList]);

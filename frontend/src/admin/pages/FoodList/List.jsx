@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import apiRequest from '../../../lib/apiRequest';
+import apiRequest, { BASE_URL } from '../../../lib/apiRequest';
 import { toast } from 'react-toastify';
 import './List.css';
 import { Link } from 'react-router-dom';
@@ -227,7 +227,7 @@ const List = () => {
                             item.image
                               ? item.image.startsWith('http')
                                 ? item.image
-                                : `http://localhost:4000/images/${item.image}`
+                                : `${BASE_URL}/images/${item.image}`
                               : 'https://via.placeholder.com/60?text=Food'
                           }
                           alt={item.name}

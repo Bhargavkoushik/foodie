@@ -21,8 +21,10 @@ build/
 */ENV
 backend/.env
 backend/.env.*
+!backend/.env.example
 frontend/.env
 frontend/.env.*
+!frontend/.env.example
 
 # Repository metadata to exclude from source control
 .github/

@@ -14,4 +14,10 @@ export const assets ={
     parcel_icon
 }
 
-export const url = 'http://localhost:4000'
+export const url =
+  import.meta.env.VITE_BACKEND_URL ||
+  import.meta.env.VITE_API_URL ||
+  (typeof window !== "undefined" &&
+  (window.location.hostname.includes("vercel.app") || window.location.hostname.includes("onrender.com"))
+    ? "https://foodie-nzkz.onrender.com"
+    : "http://localhost:4000");

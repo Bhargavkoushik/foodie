@@ -5,6 +5,7 @@ import path from "path";
 import fs from "fs";
 import { fileURLToPath } from "url";
 import cookieParser from "cookie-parser";
+import mongoose from "mongoose";
 import { connectDB } from "./config/db.js";
 import foodRouter from "./routes/foodRoute.js";
 import cartRoutes from "./routes/cartRoutes.js";
@@ -71,8 +72,35 @@ app.use(
   })
 );
 
-// db connection
-await connectDB();
+// db connection with fail-fast startup guarantee
+try {
+  await connectDB();
+} catch (error) {
+  console.error("\n❌ FATAL: Backend startup aborted due to MongoDB connection failure.");
+  console.error("👉 Please ensure MONGODB_URI is correctly configured in your environment.");
+  console.error(`👉 Error details: ${error.message}\n`);
+  process.exit(1);
+}
+
+// Safe health check endpoint for monitoring (Render, Pingers, Status checks)
+app.get("/health", (req, res) => {
+  const isDbConnected = mongoose.connection.readyState === 1;
+  if (isDbConnected) {
+    return res.status(200).json({
+      status: "ok",
+      database: "connected",
+    });
+  }
+  return res.status(503).json({
+    status: "error",
+    database: "disconnected",
+  });
+});
+
+// Root welcome check
+app.get("/", (req, res) => {
+  res.status(200).json({ success: true, message: "Foodie API is running" });
+});
 
 // api endpoints
 app.use("/api/food", foodRouter);
@@ -82,11 +110,6 @@ app.use("/api/reviews", reviewRoutes);
 app.use("/api/restaurant", restaurantRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/user", userRoutes);
-
-// Root health check
-app.get("/", (req, res) => {
-  res.status(200).json({ success: true, message: "Foodie API is running" });
-});
 
 // 404 handler for undefined routes
 app.use((req, res) => {

@@ -44,10 +44,10 @@ export const registerUser = async (req, res) => {
     // Generate JWT
     const token = generateToken(user._id);
 
-    // Set JWT in secure, HTTP-only cookie
+    // Set JWT in secure, HTTP-only cookie (sameSite: 'none' in production for cross-domain Vercel <-> Render)
     res.cookie('token', token, {
       httpOnly: true,
-      sameSite: 'lax',
+      sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
       secure: process.env.NODE_ENV === 'production',
       maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
     });
@@ -90,10 +90,10 @@ export const loginUser = async (req, res) => {
     // Generate JWT
     const token = generateToken(user._id);
 
-    // Set JWT in secure, HTTP-only cookie
+    // Set JWT in secure, HTTP-only cookie (sameSite: 'none' in production for cross-domain Vercel <-> Render)
     res.cookie('token', token, {
       httpOnly: true,
-      sameSite: 'lax',
+      sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
       secure: process.env.NODE_ENV === 'production',
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
@@ -116,7 +116,7 @@ export const logoutUser = async (req, res) => {
     res.cookie('token', '', {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
-      sameSite: 'lax',
+      sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
       expires: new Date(0),
     });
 
